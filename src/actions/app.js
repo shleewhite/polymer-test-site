@@ -13,7 +13,7 @@ export const GET_CHARACTERS = 'GET_CHARACTERS';
 
 export const navigate = (path) => (dispatch) => {
   // Extract the page name from path.
-  const page = path === '/' ? 'view1' : path.slice(1);
+  const page = path === '/' ? 'home-view' : path.slice(1);
 
   // Any other info you might want to extract from the path (like page type),
   // you can do here
@@ -22,9 +22,14 @@ export const navigate = (path) => (dispatch) => {
 
 const loadPage = (page) => (dispatch) => {
   switch (page) {
-    case 'view1':
-      import('../components/views/home-view.js').then((module) => {
-      });
+    case 'home-view':
+      import('../components/views/home-view.js');
+      break;
+    case 'results-view':
+      import('../components/views/results-view.js');
+      break;
+    case 'form-view':
+      import('../components/views/form-view.js');
       break;
     default:
       page = 'view404';

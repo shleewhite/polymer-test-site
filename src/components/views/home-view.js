@@ -1,19 +1,17 @@
-import { html } from 'lit-element';
+import { html, css } from 'lit-element';
 import { connect } from 'pwa-helpers/connect-mixin.js';
-import { PageViewElement } from '../page-view-element.js';
+import { PageViewElement } from './page-view-element.js';
 
 import { store } from '../../store.js';
 
-import { getAllCharacters } from '../../actions/app.js';
-
+import {
+  getAllCharacters,
+  navigate
+} from '../../actions/app.js';
 import { changeSelected } from '../../actions/picker.js';
-import picker from '../../reducers/picker.js';
-
-store.addReducers({
-  picker
-});
 
 import '../picker-element.js';
+import '../footer-element.js';
 
 class HomeView extends connect(store)(PageViewElement) {
   static get properties() {
@@ -23,10 +21,33 @@ class HomeView extends connect(store)(PageViewElement) {
     }
   }
 
+  static get styles() {
+    return css`
+      .hide {
+        display: none;
+      }
+    `;
+  }
+
   render() {
+    const backButton = {
+      label: "Previous page",
+      disabled: true,
+    };
+    const nextButton = {
+      label: "Show me my results!",
+      disabled: false,
+      onClick: () => {
+        // console.log('test');
+        // window.location.href = '/view2';
+        history.pushState({}, "test", "results-view")
+        store.dispatch(navigate("/results-view"))
+      }
+    };
+
     return html`
-      <section>
-        <h2>Characters</h2>
+      <section class="${!this.active ? 'hide' : null}">
+        <h2>Character Quiz</h2>
         <picker-element
           legend="Who is your favorite?"
           name="characters"
@@ -34,8 +55,10 @@ class HomeView extends connect(store)(PageViewElement) {
           @picker-value-changed="${this._pickerValueChanged}"
           value="${this._pickerValue}">
         </picker-element>
-        <div>Current selection: ${this._pickerValue}</div>
-        <div>Don't like the options available? <button>Add your own character!</button></div>
+        <footer-element
+          .backButton="${backButton}"
+          .nextButton="${nextButton}">
+        </footer-element>
       </section>
     `;
   }

@@ -38,7 +38,7 @@ class MyApp extends connect(store)(LitElement) {
         }
 
         [main-title] {
-          // font-family: 'Pacifico';
+          font-family: 'Acme', sans-serif;
         }
 
         /* Workaround for IE11 displaying <main> as inline */
@@ -53,7 +53,9 @@ class MyApp extends connect(store)(LitElement) {
     return html`
       <h1 main-title>${this.appTitle}</h1>
       <main>
-        <home-view ?active="${this._page === 'view1'}"></home-view>
+        <home-view ?active="${this._page === 'home-view'}"></home-view>
+        <results-view ?active="${this._page === 'results-view'}"></results-view>
+        <form-view ?active="${this._page === 'form-view'}"></form-view>
         <my-view404 ?active="${this._page === 'view404'}"></my-view404>
       </main>
     `;

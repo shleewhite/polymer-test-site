@@ -15,9 +15,6 @@ import {
 
 const INITIAL_STATE = {
   page: '',
-  offline: false,
-  drawerOpened: false,
-  snackbarOpened: false,
   characters: [],
 };
 
