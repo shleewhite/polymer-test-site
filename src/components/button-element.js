@@ -1,10 +1,14 @@
 import { LitElement, html, css } from 'lit-element';
 
-export class FooterElement extends LitElement {
+class ButtonElement extends LitElement {
   static get properties() {
     return {
-      backButton: { type: Object },
-      nextButton: { type: Object }
+      disabled: { type: Boolean },
+      label: { type: String },
+      handleClick: { type: Function },
+      id: { type: String },
+      handleKeyPress: { type: Function },
+      focus: { type: Boolean },
     }
   }
 
@@ -45,18 +49,28 @@ export class FooterElement extends LitElement {
     ]
   }
 
+  constructor() {
+    super();
+    this.focus = false;
+  }
+
   render() {
     return html`
-      <div>
-        ${this.backButton.disabled ?
-        html`<button disabled>${this.backButton.label}</button>` :
-        html`<button @click=${this.backButton.onClick}>${this.backButton.label}</button>`}
-        ${this.nextButton.disabled ?
-        html`<button disabled>${this.nextButton.label}</button>` :
-        html`<button @click=${this.nextButton.onClick}>${this.nextButton.label}</button>`}
-      </div>
+      ${this.disabled ?
+        html`<button disabled>${this.label}</button>` :
+        html`<button @click=${this.handleClick}" .id="${this.id}" @keydown=${this.handleKeyPress}>${this.label}</button>`
+      }
     `;
+  }
+
+  updated(changedProps) {
+    // console.log('changed', changedProps)
+    // if (changedProps.has('focus') && !changedProps.focus) {
+    //   console.log(changedProps.focus)
+    //   this.shadowRoot.querySelector('button').focus();
+    //   changedProps.focus = !changedProps.focus;
+    // }
   }
 }
 
-window.customElements.define('footer-element', FooterElement);
+window.customElements.define('button-element', ButtonElement);

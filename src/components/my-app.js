@@ -39,11 +39,19 @@ class MyApp extends connect(store)(LitElement) {
 
         [main-title] {
           font-family: 'Acme', sans-serif;
+          padding: 1rem 0px 0px 1rem;
+          margin: 0rem;
+          font-size: 1.5rem;
         }
 
         /* Workaround for IE11 displaying <main> as inline */
         main {
           display: block;
+          padding: 1rem;
+        }
+
+        [container] {
+          background-color: white;
         }
       `
     ];
@@ -51,13 +59,13 @@ class MyApp extends connect(store)(LitElement) {
 
   render() {
     return html`
-      <h1 main-title>${this.appTitle}</h1>
-      <main>
-        <home-view ?active="${this._page === 'home-view'}"></home-view>
-        <results-view ?active="${this._page === 'results-view'}"></results-view>
-        <form-view ?active="${this._page === 'form-view'}"></form-view>
-        <my-view404 ?active="${this._page === 'view404'}"></my-view404>
-      </main>
+      <div container>
+        <h1 main-title>${this.appTitle}</h1>
+        <main>
+          <home-view ?active="${this._page === 'home-view'}"></home-view>
+          <my-view404 ?active="${this._page === 'view404'}"></my-view404>
+        </main>
+      </div>
     `;
   }
 
@@ -71,7 +79,6 @@ class MyApp extends connect(store)(LitElement) {
       updateMetadata({
         title: pageTitle,
         description: pageTitle
-        // This object also takes an image property, that points to an img src.
       });
     }
   }

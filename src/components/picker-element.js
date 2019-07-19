@@ -23,6 +23,7 @@ class PickerElement extends LitElement {
   }
 
   render() {
+
     return html`
       <link rel="stylesheet" href="./salesforce-lightning-design-system.min.css">
       <fieldset class="slds-form-element">
@@ -43,12 +44,18 @@ class PickerElement extends LitElement {
                 <span class="slds-visual-picker__figure slds-visual-picker__icon slds-align_absolute-center">
                   <span class="slds-is-selected">
                     <span class="slds-icon_container">
-                      <img class="slds-icon slds-icon_large" alt="" src="./images/${opt.image}"/>
+                      ${opt.custom ?
+        html`<img class="slds-icon slds-icon_large" alt="" src="${opt.image}"/>` :
+        html`<img class="slds-icon slds-icon_large" alt="" src="./images/${opt.image}"/>`
+      }
                     </span>
                   </span>
                   <span class="slds-is-not-selected">
                     <span class="slds-icon_container">
-                      <img class="slds-icon slds-icon-utility-custom_apps slds-icon_large slds-icon-text-default" alt="" src="./images/${opt.image}"/>
+                    ${opt.custom ?
+        html`<img class="slds-icon slds-icon_large" alt="" src="${opt.image}"/>` :
+        html`<img class="slds-icon slds-icon_large" alt="" src="./images/${opt.image}"/>`
+      }
                     </span>
                   </span>
                 </span>

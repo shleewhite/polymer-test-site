@@ -11,11 +11,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 import {
   UPDATE_PAGE,
   GET_CHARACTERS,
+  ADD_CHARACTER,
+  GET_RESULT,
+  TOGGLE_MODAL
 } from '../actions/app.js';
 
 const INITIAL_STATE = {
   page: '',
   characters: [],
+  result: '',
+  showModal: false,
 };
 
 const app = (state = INITIAL_STATE, action) => {
@@ -29,6 +34,24 @@ const app = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         characters: action.characters
+      }
+    case ADD_CHARACTER:
+      return {
+        ...state,
+        characters: [...state.characters, action.newCharacter],
+      }
+    case GET_RESULT:
+      let resultObj = state.characters.find((character) => (
+        character.value === action.value
+      ));
+      return {
+        ...state,
+        result: resultObj,
+      }
+    case TOGGLE_MODAL:
+      return {
+        ...state,
+        showModal: !state.showModal,
       }
     default:
       return state;
